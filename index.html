@@ -1,0 +1,92 @@
+<html>
+
+  <head>
+    <title>Testing PDP Image Grid</title>
+  </head>
+
+  <body>
+
+    <style>
+
+      .keyfeatures {
+        display:block;
+        padding:5vw 0;
+        width:90vw;
+        max-width:1200px;
+        margin:0 auto;
+      }
+      .product {
+        display:grid;
+        width:90vw;
+        margin:0 auto;
+        padding:3rem 0;
+        grid-template-columns: auto;
+        grid-template-rows: 175px 1fr;
+        grid-template-areas:
+          "title"
+          "photos"
+          "details";
+      }
+      .title {
+        grid-area:title;
+      }
+      .details {
+        grid-area:details;
+      }
+      .images {
+        grid-area:photos;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        margin-bottom:2rem;
+      }
+      .prod-image {
+        width:90%;
+        height:auto;
+        margin-right:10px;
+      }
+      @media screen and (min-width:786px) {
+        .product {
+          grid-template-areas:
+            "title photos"
+            "details photos"
+            "details photos"
+        }
+        .images {
+          margin-left:2rem;
+          white-space: normal;
+          display:block;
+        }
+        .prod-image {
+          width:100%;
+          margin-bottom:10px;
+          box-sizing: border-box;
+        }
+      }
+      @media screen and (min-width:1200px) {
+        .prod-image {
+          width:calc(50% - 10px);
+          margin-right:10px;
+        }
+        .prod-image:nth-child(2) {
+          margin-right:0;
+        }
+      }
+
+    </style>
+
+    <div class="product">
+      <img src="buybox-title.png" class="title">
+      <img src="buybox-details.png" class="details">
+      <div class="images">
+        <img src="s01.png" class="prod-image">
+        <img src="s02.png" class="prod-image">
+        <img src="s03.png" class="prod-image">
+      </div>
+    </div>
+    <img src="key-features.png" class="keyfeatures">
+
+
+  </body>
+
+</html>
