@@ -39,13 +39,14 @@
         overflow-y: hidden;
         white-space: nowrap;
         margin-bottom:2rem;
+        height:60vh;
       }
       .prod-image {
-        width:90%;
-        height:auto;
+        height:60vh;
+        width:auto;
         margin-right:10px;
       }
-      @media screen and (min-width:786px) {
+      @media screen and (min-width:900px) {
         .product {
           grid-template-areas:
             "title photos"
@@ -56,19 +57,27 @@
           margin-left:2rem;
           white-space: normal;
           display:block;
+          height:auto;
         }
-        .prod-image {
-          width:100%;
-          margin-bottom:10px;
-          box-sizing: border-box;
-        }
-      }
-      @media screen and (min-width:1200px) {
         .prod-image {
           width:calc(50% - 10px);
           margin-right:10px;
+          margin-bottom:10px;
+          height:auto;
+          box-sizing: border-box;
         }
         .prod-image:nth-child(2) {
+          margin-right:0;
+        }
+      }
+      @media screen and (min-width:1440px) {
+        .prod-image {
+          width:calc(33% - 20px);
+        }
+        .prod-image:nth-child(2) {
+          margin-right:10;
+        }
+        .prod-image:nth-child(3) {
           margin-right:0;
         }
       }
