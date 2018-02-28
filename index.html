@@ -22,86 +22,79 @@
       }
       .product {
         display:grid;
-        width:90vw;
-        margin:0 auto;
-        padding:3rem 0;
-        grid-template-columns: auto;
+        grid-template-columns: auto 1fr;
         grid-template-rows: auto 1fr;
         grid-template-areas:
-          "title"
-          "photos"
-          "details";
+          "title title"
+          "photos photos"
+          "details details";
+        box-sizing: border-box;
+        width:95vw;
+        margin:0 auto;
+        padding:3rem 0;
+
       }
       .title {
         grid-area:title;
         margin-bottom:2rem;
-        width:250px;
       }
       .details {
         grid-area:details;
-        width:250px;
       }
       .images {
         grid-area:photos;
+        display:block;
+        white-space: nowrap;
+        box-sizing: border-box;
         overflow-x: scroll;
         overflow-y: hidden;
-        white-space: nowrap;
+        padding-bottom:10px;
         margin-bottom:2rem;
-        height:60vh;
         -webkit-overflow-scrolling: touch;
       }
       .prod-image {
-        height:60vh;
-        width:auto;
+        box-sizing: border-box;
+        width:85vw;
+        height:auto;
         margin-right:10px;
       }
-      @media screen and (min-width:900px) {
+      .prod-image:last-child {
+        margin-right:0;
+      }
+      @media screen and (min-width:700px) {
         .product {
           grid-template-areas:
             "title photos"
             "details photos"
             "details photos"
         }
-        .title {
-          width:250px;
-        }
-        .details {
-          width:250px;
-        }
         .images {
+          display:flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+          flex-wrap: wrap;
           margin-left:2rem;
           white-space: normal;
-          display:block;
           height:auto;
         }
         .prod-image {
-          width:calc(50% - 10px);
-          margin-right:10px;
+          width:100%;
           margin-bottom:10px;
           height:auto;
-          box-sizing: border-box;
-        }
-        .prod-image:nth-child(2) {
-          margin-right:0;
         }
       }
-      @media screen and (min-width:1200px) {
-        .title {
-          width:313px;
+      @media screen and (min-width:1000px) {
+        .images {
+          flex-direction: row;
         }
-        .details {
-          width:313px;
+        .prod-image {
+          width:calc(50% - 10px);
         }
       }
       @media screen and (min-width:1600px) {
         .prod-image {
-          width:calc(33% - 20px);
-        }
-        .prod-image:nth-child(2) {
-          margin-right:10;
-        }
-        .prod-image:nth-child(3) {
-          margin-right:0;
+          width:calc(33.3% - 10px);
         }
       }
 
