@@ -1,0 +1,135 @@
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Testing PDP Image Grid</title>
+  </head>
+
+  <body>
+
+    <style>
+
+      @-ms-viewport{
+        width: device-width;
+      }
+
+      .keyfeatures {
+        display:block;
+        padding:5vw 0;
+        width:90vw;
+        max-width:1550px;
+        margin:0 auto;
+      }
+      .product {
+        display:flex;
+        flex-direction:column;
+        width:100%;
+        max-width:1600px;
+        margin:0 auto;
+        padding:0 25px;
+        box-sizing: border-box;
+        justify-content: flex-start;
+        align-items:flex-start;
+        flex-wrap: wrap;
+      }
+      .title {
+        margin:1rem 0;
+      }
+      .details {
+        margin:1rem 0;
+      }
+      .images {
+        display:block;
+        white-space: nowrap;
+        overflow-x: scroll;
+      }
+      .prod-image {
+        width:80%;
+        height:auto;
+        max-width:700px;
+      }
+      @media screen and (min-width:768px) {
+        .product {
+          display:block;
+        }
+        .title {
+          display:inline-block;
+        }
+        .details {
+          display:inline-block;
+        }
+        .images {
+          display:inline-block;
+          float:right;
+          display:grid;
+          grid-gap:5px;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          width:calc(100% - 340px);
+        }
+        .prod-image {
+          width:100%;
+        }
+      }
+      @media screen and (min-width:920px) {
+        .images {
+          grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+        }
+      }
+      @media screen and (min-width:1212px) {
+        .images {
+          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+      }
+
+
+    </style>
+
+    <br><br><br><br><br><br>
+
+    <div class="product">
+      <div class="title">
+        <img src="buybox-title.png" class="title-img">
+      </div>
+      <div class="images">
+        <a href="zoom.html#01"><img src="int01.png" class="prod-image"></a>
+        <a href="zoom.html#02"><img src="int02.png" class="prod-image"></a>
+        <a href="zoom.html#03"><img src="int03.png" class="prod-image"></a>
+        <a href="zoom.html#01"><img src="s02.png" class="prod-image"></a>
+        <a href="zoom.html#01"><img src="s03.png" class="prod-image"></a>
+      </div>
+      <div class="details">
+        <img src="buybox-details.png" class="details-img">
+      </div>
+    </div>
+    <img src="key-features.png" class="keyfeatures">
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+      <!-- <script>
+        var featuresPos = $('.keyfeatures').position();
+        var productPos = $('.product').position();
+        var endHook = featuresPos.top - productPos.top - ($('.product').height());
+
+        var controller = new ScrollMagic.Controller();
+        var scene2 = new ScrollMagic.Scene({
+            triggerElement: ".product",
+            duration: endHook,
+            offset: $('.title').height(),
+            triggerHook: 0,
+            reverse: true
+          })
+          .setPin(".details")
+          .addTo(controller);
+      </script> -->
+
+
+
+  </body>
+
+</html>

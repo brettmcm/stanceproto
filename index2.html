@@ -21,22 +21,20 @@
       .product {
         display:grid;
         grid-gap:25px;
-        grid-template-columns: auto 1fr;
+        grid-template-columns: auto;
         max-width:1600px;
         margin:0 auto;
         padding:0 25px;
         box-sizing: border-box;
         align-content: start;
-        /* border:1px solid red; */
       }
       .images {
-        display:grid;
-        grid-gap:5px;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        justify-content: start;
+        display:block;
+        white-space: nowrap;
+        overflow-x: scroll;
       }
       .prod-image {
-        width:100%;
+        width:80%;
         height:auto;
         max-width:700px;
       }
@@ -47,6 +45,39 @@
         max-width:315px;
       }
       .title {
+        position:relative;
+        display:block;
+      }
+      .details {
+        position:relative;
+        display:block;
+      }
+      @media screen and (min-width:768px) {
+        .product {
+          grid-template-columns: auto 1fr;
+          grid-template-areas:
+          "bbox images";
+        }
+        .title {
+          grid-area:bbox;
+        }
+        .details {
+          grid-area:bbox;
+        }
+        .images {
+          grid-area:images;
+          display:grid;
+          grid-gap:5px;
+          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+          justify-content: start;
+        }
+        .prod-image {
+          width:100%;
+        }
+        .bbox.pinned > div {
+          position:fixed;
+          top:25px;
+        }
       }
 
     </style>
@@ -54,9 +85,10 @@
     <br><br><br><br><br><br><br><br><br><br><br><br>
 
     <div class="product">
-      <div class="buybox">
-        <img src="buybox-title.png" class="title">
-        <img src="buybox-details.png" class="details">
+      <div class="title bbox">
+        <div class="inner-contain">
+          <img src="buybox-title.png">
+        </div>
       </div>
       <div class="images">
         <img src="int01.png" class="prod-image">
@@ -65,6 +97,7 @@
         <img src="s02.png" class="prod-image">
         <img src="s03.png" class="prod-image">
       </div>
+      <!-- <img src="buybox-details.png" class="details bbox"> -->
     </div>
     <img src="key-features.png" class="keyfeatures">
 
@@ -76,16 +109,25 @@
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
     <script>
+    var featuresPos = $('.keyfeatures').position();
+    var endHook = featuresPos.top - $('.title').height();
+    // var pin = new ScrollMagic.Controller({globalSceneOptions: { triggerHook: 'onLeave', offset: -25, duration: endHook }});
+    // new ScrollMagic.Scene({triggerElement: ".product"})
+		// 		.setClassToggle(".bbox", "pinned") // add class toggle
+		// 		.addTo(pin);
+
       var controller = new ScrollMagic.Controller();
       var scene1 = new ScrollMagic.Scene({
         triggerElement: ".product", // point of execution
-        duration: $(".images").height() - ($(".title").height() + $(".details").height()), // pin element for the window height - 1
+        duration: endHook, // pin element for the window height - 1
         triggerHook: 0, // don't trigger until #pinned-trigger1 hits the top of the viewport
         reverse: true // allows the effect to trigger when scrolled in the reverse direction
       })
-      .setPin(".buybox") // the element we want to pin
+      .setPin(".inner-contain") // the element we want to pin
       .addTo(controller);
+
     </script>
+
 
   </body>
 

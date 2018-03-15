@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>Zoomed Image Function</title>
+</head>
+<body>
+
+  <style>
+    @-ms-viewport{
+      width: device-width;
+    }
+    body {
+      margin:5px 5px 0 5px;
+      -webkit-touch-callout: none;
+        -webkit-user-select: none;
+         -khtml-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+    }
+    img {
+      width:100%;
+      height:auto;
+      margin-bottom:5px;
+        -webkit-pointer-events: none;
+         -khtml-pointer-events: none;
+           -moz-pointer-events: none;
+            -ms-pointer-events: none;
+                pointer-events: none;
+    }
+    .exit {
+      position:fixed;
+      top:50px;
+      right:50px;
+      width:50px;
+      height:auto;
+      pointer-events: auto;
+    }
+    </style>
+
+  <a name="01" /><img src="zoom01.jpg">
+  <a name="02" /><img src="zoom02.jpg">
+  <a name="03" /><img src="zoom03.jpg">
+
+  <a href="index-flex.html"><img src="exit.svg" class="exit"></a>
+
+</body>
+</html>
