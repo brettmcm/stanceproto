@@ -33,22 +33,38 @@
         flex-wrap: wrap;
       }
       .title {
+        width:100%;
+        max-width:315px;
         margin:1rem 0;
       }
       .details {
+        width:100%;
+        max-width:315px;
         margin:1rem 0;
+      }
+      .title > img {
+        width:100%;
+        height:auto;
+      }
+      .details > img {
+        width:100%;
+        height:auto;
       }
       .images {
         display:block;
         white-space: nowrap;
         overflow-x: scroll;
         -webkit-overflow-scrolling: touch;
-        
+        margin-left:-20px;
+        width:calc(100vw);
       }
       .prod-image {
         width:85%;
         height:auto;
         max-width:700px;
+      }
+      .prod-image.first {
+        margin-left:10px;
       }
       @media screen and (min-width:768px) {
         .product {
@@ -67,9 +83,13 @@
           grid-gap:5px;
           grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
           width:calc(100% - 340px);
+          margin-left:0px;
         }
         .prod-image {
           width:100%;
+        }
+        .prod-image:first {
+          margin-left:0px;
         }
       }
       @media screen and (min-width:920px) {
@@ -91,7 +111,7 @@
         <img src="buybox-title.png" class="title-img">
       </div>
       <div class="images">
-        <a href="zoom.html#01"><img src="int01.png" class="prod-image"></a>
+        <a href="zoom.html#01"><img src="int01.png" class="prod-image first"></a>
         <a href="zoom.html#02"><img src="int02.png" class="prod-image"></a>
         <a href="zoom.html#03"><img src="int03.png" class="prod-image"></a>
         <a href="zoom.html#01"><img src="s02.png" class="prod-image"></a>
