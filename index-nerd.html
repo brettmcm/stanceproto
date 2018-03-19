@@ -3,8 +3,8 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="ScrollMagic/scrollmagic/minified/ScrollMagic.min.js"></script>
-    <script src="node_modules/enquire.js/dist/enquire.min.js"></script>
+    <!-- <script src="ScrollMagic/scrollmagic/minified/ScrollMagic.min.js"></script>
+    <script src="node_modules/enquire.js/dist/enquire.min.js"></script> -->
     <title>Testing PDP Image Grid</title>
   </head>
 
@@ -30,13 +30,15 @@
         display:flex;
         flex-direction:column;
         width:100%;
-        max-width:1600px;
+        max-width:2000px;
         margin:0 auto;
         padding:0 10px;
         box-sizing: border-box;
         justify-content: flex-start;
         align-items:flex-start;
         flex-wrap: wrap;
+        overflow:hidden;
+        zoom:1;
       }
       .title {
         width:100%;
@@ -87,6 +89,17 @@
         .details {
           display:inline-block;
         }
+        .title.pinned, .details.pinned {
+          position:fixed;
+          top:0px;
+        }
+        .details.pinned {
+          top:150px;
+        }
+        .title.pinned-bottom, .details.pinned-bottom {
+          position:absolute;
+          bottom:0px;
+        }
         .images {
           float:right;
           white-space: normal;
@@ -105,24 +118,11 @@
           all: unset;
         }
         a {
-          flex:1 0 350px;
+          flex:1 0 500px;
           padding:0 0 5px 0;
         }
         .prod-image {
           width:100%;
-        }
-
-
-        .scrollmagic-pin-spacer {
-          position:absolute!important;
-          top:0!important;
-          width:315px!important;
-          /* border:1px solid red; */
-          /* margin:0!important; */
-        }
-
-        .scrollmagic-pin-spacer:nth-child(3) {
-          top:150px!important;
         }
       }
       @media screen and (min-width:920px) {
@@ -135,7 +135,7 @@
           padding:0 5px 5px 0;
         }
       }
-      @media screen and (min-width:1212px) {
+      @media screen and (min-width:1600px) {
         .images {
           /* grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); */
         }
@@ -159,8 +159,6 @@
         <a href="zoom.html#01"><img src="int01.png" class="prod-image first"></a>
         <a href="zoom.html#02"><img src="int02.png" class="prod-image"></a>
         <a href="zoom.html#03"><img src="int03.png" class="prod-image"></a>
-        <a href="zoom.html#01"><img src="s02.png" class="prod-image"></a>
-        <a href="zoom.html#01"><img src="s03.png" class="prod-image"></a>
       </div>
       <div class="details">
         <img src="buybox-details.png" class="details-img">
@@ -175,59 +173,62 @@
 
       <script>
 
-        var endHook,
-            scene1,
-            scene2,
-            keyFeatures = $('.keyfeatures'),
-            product = $('.product'),
-            title = $('.title'),
-            details = $('.details'),
-            featuresPos = keyFeatures.position(),
-            productPos = product.position(),
-            imageGrid = $('.images');
+          var product = $('.product'),
+              imageGrid = $('.images'),
+              title = $('.title'),
+              details = $('.details'),
+              keyFeatures = $('.keyFeatures'),
+              featuresTop = keyFeatures.offset().top;
+              productPos = product.position(),
+              titleHeight = title.height(),
+              detailsHeight = details.height(),
+              bboxHeight = titleHeight + detailsHeight + 16,
+              scroll = $(window).scrollTop(),
+              keyFeaturesPos = $('.keyFeatures').offset().top;
 
-            function endHook() {
-          		return imageGrid.height();
-          	}
+                $(window).scroll(function (event) {
+                  if (bboxHeight < imageGrid.height()) {
+                    scroll = $(window).scrollTop();
+                    if (scroll > productPos.top) {
+                      title.addClass('pinned');
+                      details.addClass('pinned');
+                    } else {
+                      title.removeClass('pinned');
+                      details.removeClass('pinned');
+                      title.removeClass('pinned-bottom');
+                      details.removeClass('pinned-bottom');
+                    }
 
-        var bboxControl = new ScrollMagic.Controller({
-              globalSceneOptions:{
-                triggerElement: ".product",
-                triggerHook: 0,
-                reverse: true
+                    if((keyFeaturesPos - scroll) < bboxHeight) {
+                      title.removeClass('pinned');
+                      details.removeClass('pinned');
+                      title.addClass('pinned-bottom');
+                      details.addClass('pinned-bottom');
+                      title.css('bottom', detailsHeight + 16);
+                    } else if (scroll > productPos.top) {
+                      title.addClass('pinned');
+                      details.addClass('pinned');
+                      title.removeClass('pinned-bottom');
+                      details.removeClass('pinned-bottom');
+                    }
+                  }
+                });
+
+
+              function refreshPin() {
+                  titleHeight = title.height();
+                  detailsHeight = details.height();
+                  bboxHeight = titleHeight + detailsHeight + 16;
+                  productPos = product.position();
+                  keyFeaturesPos = $('.keyFeatures').offset().top;
               }
-            });
-
-        enquire.register("screen and (min-width:768px)", {
-            match : function() {
-              featuresPos = keyFeatures.position();
-              productPos = product.position();
-              endHook = featuresPos.top - productPos.top - product.height();
-              detailScene = new ScrollMagic.Scene({duration: endHook}).setPin(".details");
-              titleScene = new ScrollMagic.Scene({duration: endHook}).setPin(".title");
-              bboxControl.addScene([detailScene, titleScene]);
-            },
-            unmatch : function() {
-              detailScene.destroy(true);
-              titleScene.destroy(true);
-            }
-        });
-
-        function refreshPin() {
-          // console.log('Resize done');
-          // controller = controller.destroy();
-          // controller = new ScrollMagic.Controller();
-          // controller.addScene([scene1, scene2]);
-            detailScene.duration(imageGrid.height() - (title.height() + details.height()));
-            titleScene.duration(imageGrid.height() - (title.height() + details.height()));
-        }
-        var resizeTimer;
-        $(window).on('resize', function(e) {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(function() {
-            refreshPin();
-          }, 250);
-        });
+              var resizeTimer;
+              $(window).on('resize', function(e) {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                  refreshPin();
+                }, 250);
+              });
 
       </script>
 
